@@ -9,9 +9,9 @@ function Button(props: ButtonProps) {
 function App() {
   return (
     <div>
-      <Button title="Enviar 1" />
-      <Button title="Enviar 2" />
-      <Button title="Enviar 3" />
+      <Button title="Hello NLW 1" />
+      <Button title="Hello NLW 2" />
+      <Button title="Hello NLW 3" />
     </div>
   );
 }
