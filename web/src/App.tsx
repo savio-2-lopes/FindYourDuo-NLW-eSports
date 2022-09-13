@@ -1,8 +1,25 @@
 import "./styles/main.css";
 import logoImg from "./assets/logo.svg";
-import { MagnifyingGlass, MagnifyingGlassPlus } from "phosphor-react";
+import { MagnifyingGlassPlus } from "phosphor-react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 export default function App() {
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 6,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
       <img src={logoImg} alt="Logo" />
@@ -14,8 +31,20 @@ export default function App() {
         está aqui
       </h1>
 
-      <div className="grid grid-cols-6 gap-6 mt-16">
-        <a href="" className="relative rounded-lg overflow-hidden">
+      <div className="grid mt-16 items-center justify-center">
+        <Carousel
+          swipeable={true}
+          draggable={true}
+          showDots={false}
+          responsive={responsive}
+          ssr={true}
+          infinite={true}
+          keyBoardControl={true}
+          transitionDuration={500}
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          deviceType="desktop"
+        >
+        <a href="#" className="relative rounded-lg overflow-hidden">
           <img src="/image-1.png" alt="" />
           <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
             <strong className="font-bold text-white block">
@@ -24,50 +53,80 @@ export default function App() {
             <span className="text-zinc-300 text-sm block">4 anúncios</span>
           </div>
         </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-1.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">
+                League of Legends
+              </strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
 
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/image-2.png" alt="" />
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block">Dota 2</strong>
-            <span className="text-zinc-300 text-sm block">4 anúncios</span>
-          </div>
-        </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-2.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">Dota 2</strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-2.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">Dota 2</strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
 
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/image-3.png" alt="" />
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block">
-              Counter Strike
-            </strong>
-            <span className="text-zinc-300 text-sm block">4 anúncios</span>
-          </div>
-        </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-3.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">
+                Counter Strike
+              </strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-3.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">
+                Counter Strike
+              </strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
 
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/image-4.png" alt="" />
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block">
-              World of Warcraft
-            </strong>
-            <span className="text-zinc-300 text-sm block">4 anúncios</span>
-          </div>
-        </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-4.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">Apex</strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-4.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">Apex</strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
 
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/image-5.png" alt="" />
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block">Apex</strong>
-            <span className="text-zinc-300 text-sm block">4 anúncios</span>
-          </div>
-        </a>
-
-        <a href="" className="relative rounded-lg overflow-hidden">
-          <img src="/image-6.png" alt="" />
-          <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-            <strong className="font-bold text-white block">Fortnite</strong>
-            <span className="text-zinc-300 text-sm block">4 anúncios</span>
-          </div>
-        </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-5.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">Fortnite</strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
+          <a href="#" className="relative rounded-lg overflow-hidden">
+            <img src="/image-5.png" alt="" />
+            <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
+              <strong className="font-bold text-white block">Fortnite</strong>
+              <span className="text-zinc-300 text-sm block">4 anúncios</span>
+            </div>
+          </a>
+        </Carousel>
       </div>
 
       <div className="pt-1 bg-nlw-gradient self-stretch rounded-lg mt-8 overflow-hidden">
