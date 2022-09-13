@@ -1,37 +1,32 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
-
-interface ButtonProps {
-  title: string;
-}
-
-function Button() {
-  return (
-    <TouchableOpacity>
-      <Text>Enviar</Text>
-    </TouchableOpacity>
-  );
-}
+import { StatusBar } from "react-native";
+import { Background } from "./src/components/Background";
+import {
+  useFonts,
+  Inter_400Regular,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_900Black,
+} from "@expo-google-fonts/inter";
+import { Home } from "./src/screens/Home";
+import { Loading } from "./src/components/Loading";
 
 export default function App() {
+  const [fontsLoader] = useFonts({
+    Inter_400Regular,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_900Black,
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>Hello NLW!</Text>
-      <StatusBar style="auto" />
-      <Button />
-    </View>
+    <Background>
+      <StatusBar
+        translucent
+        barStyle="light-content"
+        backgroundColor="transparent"
+      />
+
+      {fontsLoader ? <Home /> : <Loading />}
+    </Background>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    color: "#FFF",
-    fontSize: 22,
-  },
-});
