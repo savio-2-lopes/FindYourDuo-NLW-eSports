@@ -6,12 +6,25 @@ import Carousel from "react-multi-carousel";
 import api from "../services/api";
 
 import "react-multi-carousel/lib/styles.css";
-import Modal from "../components/Modal";
+// import Modal from "../components/Modal";
+import { GameBanner } from "../components/GameBanner";
+import { CreatedAdBanner } from "../components/CreatedAdBanner";
+import { Spinner } from "../components/Spinner";
+
+interface Game {
+  id: string;
+  bannerUrl: string;
+  title: string;
+  _count: {
+    ads: number;
+  };
+}
 
 export default function Home() {
-  const [dataGames, setDataGames] = useState([]);
-  const [selectedId, setSelectedId] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [dataGames, setDataGames] = useState<Game[]>([]);
+  // const [selectedId, setSelectedId] = useState(null);
+  // const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const responsive = {
     desktop: {
@@ -31,11 +44,14 @@ export default function Home() {
   useEffect(() => {
     api
       .get("/games")
-      .then((response) => setDataGames(response.data))
+      .then((response) => {
+        setDataGames(response.data);
+        setLoading(true);
+      })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
       });
-  });
+  }, [api, dataGames]);
 
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
@@ -49,73 +65,54 @@ export default function Home() {
       </h1>
 
       <div className="grid mt-16 items-center justify-center gap-[24px]">
-        <Carousel
-          swipeable={true}
-          draggable={true}
-          showDots={false}
-          responsive={responsive}
-          ssr={true}
-          infinite={true}
-          keyBoardControl={true}
-          transitionDuration={500}
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          deviceType="desktop"
-        >
-          {dataGames &&
-            dataGames.map((item: any) => {
-              return (
-                <div
-                  key={item.id}
-                  className="relative rounded-lg overflow-hidden"
-                >
-                  <a
-                    href="#"
-                    onClick={() => {
-                      setSelectedId(item.id);
-                      setShowModal(true);
-                    }}
-                    className="relative overflow-hidden"
-                  >
-                    <img src={item.bannerUrl} alt={item.title} />
-                    <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
-                      <strong className="font-bold text-white block">
-                        {item.title}
-                      </strong>
-                      <span className="text-zinc-300 text-sm block">
-                        4 anúncios
-                      </span>
-                    </div>
-                  </a>
-                </div>
-              );
-            })}
-        </Carousel>
-      </div>
-
-      <div className="pt-1 bg-nlw-gradient self-stretch rounded-lg mt-8 overflow-hidden">
-        <div className="bg-[#2A2634] px-8 py-6 flex justify-between">
-          <div>
-            <strong className="text-2xl text-white font-black block">
-              Não encontrou seu duo?
-            </strong>
-            <span className="text-zinc-400 block">
-              Publique um anúncio para encontrar novos players!
-            </span>
-          </div>
-
-          {showModal && (
-            <Modal id={Number(selectedId)} closeModal={() => setShowModal(false)} />
-          )}
-
-          <button
-            onClick={() => setShowModal(true)}
-            className="py-3 px-4 bg-violet-500 hover:bg-violet-600 text-white rounded flex items-center gap-3"
+        {loading ? (
+          <Carousel
+            swipeable={true}
+            draggable={true}
+            showDots={false}
+            responsive={responsive}
+            ssr={true}
+            infinite={true}
+            keyBoardControl={true}
+            transitionDuration={500}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType="desktop"
           >
-            <MagnifyingGlassPlus size={24} />
-            Publicar Anúncio
-          </button>
-        </div>
+            {dataGames ? (
+              dataGames.map((item: any) => {
+                return (
+                  <div
+                    key={item.id}
+                    className="relative rounded-lg overflow-hidden"
+                  >
+                    <GameBanner
+                      bannerUrl={item.bannerUrl}
+                      title={item.title}
+                      adsCount={item._count.ads}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <h1>Sem dados</h1>
+            )}
+          </Carousel>
+        ) : (
+          <div className="mt-10 mb-10 text-white grid justify-center">
+            <Spinner />
+          </div>
+        )}
       </div>
+
+      {/* {showModal && (
+            <Modal
+              id={Number(selectedId)}
+              closeModal={() => setShowModal(false)}
+            />
+          )} 
+      */}
+
+      <CreatedAdBanner />
     </div>
   );
 }
