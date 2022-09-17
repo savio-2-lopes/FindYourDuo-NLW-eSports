@@ -12,7 +12,7 @@ export function Input(props: InputProps) {
     <>
       {props.label && (
         <label htmlFor={props.name} className="font-semibold">
-          {props.label}
+          {props.label} <span className="text-[#ff0000]">*</span>
         </label>
       )}
 

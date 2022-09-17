@@ -3,10 +3,11 @@ import * as Dialog from "@radix-ui/react-dialog";
 import * as Select from "@radix-ui/react-select";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { Check, GameController } from "phosphor-react";
-
-import { useEffect, useState } from "react";
-import api from "../services/api";
+import { FormEvent, useEffect, useState } from "react";
 import { Input } from "./Form/Input";
+import axios from "axios";
+import Swal from "sweetalert2";
+import api from "../services/api";
 
 interface Game {
   id: string;
@@ -15,17 +16,9 @@ interface Game {
 
 export function CreatedAdModal() {
   const [weekDays, setWeekDays] = useState<string[]>([]);
+  const [gameSelected, setGameSelected] = useState("");
   const [dataGames, setDataGames] = useState<Game[]>([]);
-  const [formData, setformData] = useState({
-    game: "",
-    name: "",
-    yearsPlaying: "",
-    discord: "",
-    weekDays: weekDays,
-    hoursStart: "",
-    hourEnd: "",
-    ueVoiceChannel: "",
-  });
+  const [useVoiceChannel, setUseVoiceChannel] = useState(false);
 
   useEffect(() => {
     api
@@ -36,38 +29,50 @@ export function CreatedAdModal() {
       });
   }, [api]);
 
-  const handleSubmit = async () => {
-    const registerFormData = new FormData();
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
 
-    registerFormData.append("game", formData.game);
-    registerFormData.append("name", formData.name);
-    registerFormData.append("yearsPlaying", formData.yearsPlaying);
-    registerFormData.append("discord", formData.discord);
-    registerFormData.append("weekDays", formData.weekDays);
-    registerFormData.append("hoursStart", formData.hoursStart);
-    registerFormData.append("hourEnd", formData.hourEnd);
-    registerFormData.append("ueVoiceChannel", formData.ueVoiceChannel);
+    if (
+      !data.name &&
+      !data.yearsPlaying &&
+      !data.discord &&
+      !gameSelected &&
+      !data.hourEnd &&
+      !data.hoursStart &&
+      !data.weekDays
+    ) {
+      return;
+    }
 
     try {
-      await api({
-        method: "post",
-        url: "/api/login",
-        data: registerFormData,
-        headers: { "Content-Type": "multipart/form-data" },
+      api.post(`/games/${gameSelected}/ads`, {
+        yearsPlaying: Number(data.yearsPlaying),
+        discord: data.discord,
+        hoursStart: data.hoursStart,
+        hourEnd: data.hourEnd,
+        ueVoiceChannel: useVoiceChannel,
+        weekDays: weekDays.map(Number),
+        name: data.name,
       });
-    } catch (error) {
-      console.log(error);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Anúncio registrado com sucesso",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (err) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: `Ocorreu um erro no ${err}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
-  };
-
-  const handleChange = (event: any) => {
-    setformData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  console.log("\n\n\n\n\n\n\n", formData);
+  }
 
   return (
     <Dialog.Portal>
@@ -79,9 +84,9 @@ export function CreatedAdModal() {
 
         <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
-            <Select.Root>
-              <Select.Trigger className="mt-[8px] bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500 text-left">
-                <Select.Value placeholder="Selecione o game que deseja jogar" />
+            <Select.Root onValueChange={setGameSelected}>
+              <Select.Trigger className="mt-[8px] flex justify-between bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500 text-left">
+                <Select.Value placeholder="Selecione o game que deseja jogar *" />
                 <Select.Icon />
               </Select.Trigger>
 
@@ -121,7 +126,6 @@ export function CreatedAdModal() {
               name="name"
               id="name"
               placeholder="Como te chama dentro do game?"
-              onChange={handleChange}
             />
           </div>
 
@@ -133,7 +137,6 @@ export function CreatedAdModal() {
                 name="yearsPlaying"
                 id="yearsPlaying"
                 placeholder="Tudo bem ser ZERO"
-                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -143,20 +146,21 @@ export function CreatedAdModal() {
                 name="discord"
                 id="discord"
                 placeholder="Usuario#000"
-                onChange={handleChange}
               />
             </div>
           </div>
 
           <div className="flex gap-6">
             <div className="flex flex-col gap-2">
-              <label htmlFor="weekDays">Quando costuma jogar?</label>
+              <label htmlFor="weekDays">
+                Quando costuma jogar? <span className="text-[#ff0000]">*</span>
+              </label>
               <ToggleGroup.Root
                 type="multiple"
                 className="grid grid-cols-5 gap-2 mt-3"
+                id="weekDays"
                 value={weekDays}
                 onValueChange={setWeekDays}
-                onChange={handleChange}
               >
                 <ToggleGroup.Item
                   value="0"
@@ -207,7 +211,7 @@ export function CreatedAdModal() {
             </div>
 
             <div className="flex flex-col gap-2 flex-1">
-              <label htmlFor="hourStart">Qual horário do dia?</label>
+              <label htmlFor="hourStart">Qual horário do dia? <span className="text-[#ff0000]">*</span></label>
               <div className="grid grid-cols-2 gap-2">
                 <Input
                   type="time"
@@ -215,7 +219,6 @@ export function CreatedAdModal() {
                   id="hoursStart"
                   className="appearance-none"
                   placeholder="De"
-                  onChange={handleChange}
                 />
                 <Input
                   type="time"
@@ -223,23 +226,24 @@ export function CreatedAdModal() {
                   id="hourEnd"
                   className="appearance-none"
                   placeholder="Até"
-                  onChange={handleChange}
                 />
               </div>
             </div>
           </div>
 
           <label className="mt-2 flex items-center gap-2 text-sm">
-            <Checkbox.Root className="w-6 h-6 p-1 rounded bg-zinc-900">
+            <Checkbox.Root
+              checked={useVoiceChannel}
+              onCheckedChange={(checked) => {
+                checked ? setUseVoiceChannel(true) : setUseVoiceChannel(false);
+              }}
+              className="w-6 h-6 p-1 rounded bg-zinc-900"
+            >
               <Checkbox.Indicator>
-                <Check
-                  name="ueVoiceChannel"
-                  onChange={handleChange}
-                  className="w-4 h-4 text-emerald-400"
-                />
+                <Check className="w-4 h-4 text-emerald-400" />
               </Checkbox.Indicator>
             </Checkbox.Root>
-            Costuma me conectar ao chat de voz
+            Costuma me conectar ao chat de voz? <span className="text-[#ff0000]">*</span>
           </label>
 
           <footer className="mt-4 flex justify-end gap-4">
