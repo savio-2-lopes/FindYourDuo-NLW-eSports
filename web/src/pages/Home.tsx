@@ -2,8 +2,10 @@ import logoImg from "../assets/logo.svg";
 import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 
-import Carousel from "react-multi-carousel";
 import api from "../services/api";
+
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
 import "react-multi-carousel/lib/styles.css";
 import { GameBanner } from "../components/GameBanner";
@@ -23,21 +25,17 @@ interface Game {
 export default function Home() {
   const [dataGames, setDataGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(false);
-
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 6,
+  const [ref] = useKeenSlider<HTMLDivElement>({
+    breakpoints: {
+      "(min-width: 400px)": {
+        slides: { perView: 3, spacing: 5 },
+      },
+      "(min-width: 1000px)": {
+        slides: { perView: 6, spacing: 10 },
+      },
     },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
+    slides: { perView: 1 },
+  });
 
   useEffect(() => {
     api
@@ -64,24 +62,13 @@ export default function Home() {
 
       <div className="grid mt-16 items-center justify-center gap-[24px]">
         {loading ? (
-          <Carousel
-            swipeable={true}
-            draggable={true}
-            showDots={false}
-            responsive={responsive}
-            ssr={true}
-            infinite={true}
-            keyBoardControl={true}
-            transitionDuration={500}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
-            deviceType="desktop"
-          >
+          <div ref={ref} className="keen-slider">
             {dataGames ? (
-              dataGames.map((item: any) => {
+              dataGames.map((item: any, index) => {
                 return (
                   <div
                     key={item.id}
-                    className="relative rounded-lg overflow-hidden"
+                    className={`relative rounded-lg overflow-hidden keen-slider__slide number-slide${index}`}
                   >
                     <GameBanner
                       bannerUrl={item.bannerUrl}
@@ -94,7 +81,7 @@ export default function Home() {
             ) : (
               <h1>Sem dados</h1>
             )}
-          </Carousel>
+          </div>
         ) : (
           <div className="mt-10 mb-10 text-white grid justify-center">
             <Spinner />
