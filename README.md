@@ -1,4 +1,4 @@
-# Find Your Duo - Mobile
+# Find Your Duo - NLW eSport
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/savio-2-lopes/Find-Your-Duo-NLW-eSports)
 ![GitHub language count](https://img.shields.io/github/languages/count/savio-2-lopes/Find-Your-Duo-NLW-eSports)
