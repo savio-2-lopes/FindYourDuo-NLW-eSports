@@ -1,7 +1,8 @@
 # Find Your Duo - Web
 
-<img align="right" src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Find Your Duo">
+<img src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Find Your Duo">
 
+<br>
 <br>
 
 ## Tópicos

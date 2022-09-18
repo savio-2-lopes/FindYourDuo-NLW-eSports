@@ -1,6 +1,6 @@
 # Find Your Duo - Server
 
-<img align="right" src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Find Your Duo">
+<img  src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Find Your Duo">
 
 <br>
 
