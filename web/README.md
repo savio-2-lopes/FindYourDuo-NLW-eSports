@@ -1,8 +1,8 @@
 # Find Your Duo - Web
 
-![GitHub repo size](https://img.shields.io/github/repo-size/savio-2-lopes/Find-Your-Duo-Server-NLW-eSports)
-![GitHub language count](https://img.shields.io/github/languages/count/savio-2-lopes/Find-Your-Duo-Server-NLW-eSports)
-![GitHub top language](https://img.shields.io/github/languages/top/savio-2-lopes/Find-Your-Duo-Server-NLW-eSports)
+![GitHub repo size](https://img.shields.io/github/repo-size/savio-2-lopes/Find-Your-Duo-NLW-eSports/tree/main/web)
+![GitHub language count](https://img.shields.io/github/languages/count/savio-2-lopes/Find-Your-Duo-NLW-eSports/tree/main/web)
+![GitHub top language](https://img.shields.io/github/languages/top/savio-2-lopes/Find-Your-Duo-NLW-eSports/tree/main/web)
 ![GitHub followers](https://img.shields.io/github/followers/savio-2-lopes?label=Follow&style=social)
 
 <img align="right" src="../.github/Find-Your-Duo-Server.gif" width="35%" alt="Find Your Duo">
