@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface GameBannerProps {
   bannerUrl: string;
   title: string;
@@ -6,15 +8,18 @@ interface GameBannerProps {
 
 function GameBanner(props: GameBannerProps) {
   return (
-    <a href="#" className="relative overflow-hidden">
-      <img src={props.bannerUrl} alt={props.title} />
+    <Link
+      to={"/"}
+      className="relative overflow-hidden flex justify-center lg:justify-start"
+    >
+      <img className="rounded-[8px]" src={props.bannerUrl} alt={props.title} />
       <div className="w-full pt-16 pb-4 px-4 bg-game-gradient absolute bottom-0 left-0 right-0">
         <strong className="font-bold text-white block">{props.title}</strong>
         <span className="text-zinc-300 text-sm block">
           {props.adsCount} {props.adsCount > 1 ? "anúncios" : "anúncio"}
         </span>
       </div>
-    </a>
+    </Link>
   );
 }
 

@@ -2,17 +2,38 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Select from "@radix-ui/react-select";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import { Check, GameController } from "phosphor-react";
-import { FormEvent, useEffect, useState } from "react";
-import { Input } from "./Form/Input";
-import axios from "axios";
+
+import { Check, GameController, X } from "phosphor-react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import api from "../services/api";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 interface Game {
   id: string;
   title: string;
 }
+
+const validationData = yup.object().shape({
+  name: yup
+    .string()
+    .required("O nome é obrigatório")
+    .max(40, "O título precisa ter menosde 40 caracteres"),
+  discord: yup
+    .string()
+    .required("O perfil do Discord é obrigatório")
+    .max(40, "O perfil do Discord precisa ter menos de 40 caracteres"),
+  yearsPlaying: yup
+    .string()
+    .required("A Quantidade de Anos jogando é obrigatório"),
+  hoursStart: yup
+    .string()
+    .required("A Quantidade de Anos jogando é obrigatório"),
+  hourEnd: yup.string().required("A Quantidade de Anos jogando é obrigatório"),
+});
 
 export function CreatedAdModal() {
   const [weekDays, setWeekDays] = useState<string[]>([]);
@@ -20,32 +41,30 @@ export function CreatedAdModal() {
   const [dataGames, setDataGames] = useState<Game[]>([]);
   const [useVoiceChannel, setUseVoiceChannel] = useState(false);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationData),
+  });
+
   useEffect(() => {
     api
       .get("/games")
       .then((response) => setDataGames(response.data))
       .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          text: `Ocorreu um erro no ${err}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   }, [api]);
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
-    const data = Object.fromEntries(formData);
-
-    if (
-      !data.name &&
-      !data.yearsPlaying &&
-      !data.discord &&
-      !gameSelected &&
-      !data.hourEnd &&
-      !data.hoursStart &&
-      !data.weekDays
-    ) {
-      return;
-    }
-
+  const onsubmit = (data: any) => {
     try {
       api.post(`/games/${gameSelected}/ads`, {
         yearsPlaying: Number(data.yearsPlaying),
@@ -59,34 +78,63 @@ export function CreatedAdModal() {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "Anúncio registrado com sucesso",
+        text: "Anúncio registrado com sucesso",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
+      setTimeout(() => window.location.reload(), 800);
     } catch (err) {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: `Ocorreu um erro no ${err}`,
+        text: `Ocorreu um erro no ${err}`,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
+      setTimeout(() => window.location.reload(), 800);
     }
-  }
+  };
 
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
-      <Dialog.Content className="fixed bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480px] shadow-lg shadow-black/25">
-        <Dialog.Title className="text-3xl font-black">
+      <Dialog.Content
+        className="
+          fixed  
+          bg-[#2A2634] 
+          py-8 px-10 
+          text-white 
+          top-1/2 
+          left-1/2 
+          overflow-scroll 
+          lg:overflow-hidden 
+          h-[500px] lg:h-auto
+          -translate-x-1/2 
+          -translate-y-1/2 
+          rounded-lg 
+          max-w-[480px] 
+          shadow-lg 
+          shadow-black/25
+        "
+      >
+        <Dialog.Title className="text-3xl font-black flex justify-between">
           Publique um anúncio
+          <Dialog.Close className="cursor-pointer mt-2" asChild>
+            <X size={25} color="white" />
+          </Dialog.Close>
         </Dialog.Title>
-
-        <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
+        
+        <form
+          className="mt-8 flex flex-col gap-4"
+          onSubmit={handleSubmit(onsubmit)}
+        >
           <div className="flex flex-col gap-2">
+            <label htmlFor="game">
+              Qual o game? <span className="text-rose-700">*</span>
+            </label>
             <Select.Root onValueChange={setGameSelected}>
               <Select.Trigger className="mt-[8px] flex justify-between bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500 text-left">
-                <Select.Value placeholder="Selecione o game que deseja jogar *" />
+                <Select.Value placeholder="Selecione o game que deseja jogar" />
                 <Select.Icon />
               </Select.Trigger>
 
@@ -120,29 +168,54 @@ export function CreatedAdModal() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Input
-              label="Seu nome (ou nickname)"
+            <label htmlFor="name" className="font-semibold">
+              Seu nome (ou nickname) <span className="text-rose-700">*</span>
+            </label>
+            <input
               type="text"
+              {...register("name")}
               name="name"
               id="name"
+              className={`mt-[8px] bg-zinc-900 ${
+                errors.name
+                  ? "border-[1px] focus:outline-none border-rose-500 focus:ring"
+                  : ""
+              } py-3 px-4 rounded text-sm placeholder:text-zinc-500`}
               placeholder="Como te chama dentro do game?"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
-              <Input
-                label="Joga há quantos anos"
+              <label htmlFor="yearsPlaying" className="font-semibold">
+                Joga há quantos anos <span className="text-rose-700">*</span>
+              </label>
+              <input
                 type="number"
+                {...register("yearsPlaying")}
                 name="yearsPlaying"
                 id="yearsPlaying"
+                className={`mt-[8px] bg-zinc-900 ${
+                  errors.yearsPlaying
+                    ? "border-[1px] focus:outline-none border-rose-500 focus:ring"
+                    : ""
+                } py-3 px-4 rounded text-sm placeholder:text-zinc-500`}
                 placeholder="Tudo bem ser ZERO"
               />
             </div>
+
             <div className="flex flex-col gap-2">
-              <Input
-                label="Qual seu Discord?"
+              <label htmlFor="discord" className="font-semibold">
+                Qual seu Discord? <span className="text-rose-700">*</span>
+              </label>
+              <input
                 type="text"
+                className={`mt-[8px] bg-zinc-900 ${
+                  errors.discord
+                    ? "border-[1px] focus:outline-none border-rose-500 focus:ring"
+                    : ""
+                } py-3 px-4 rounded text-sm placeholder:text-zinc-500`}
+                {...register("discord")}
                 name="discord"
                 id="discord"
                 placeholder="Usuario#000"
@@ -150,10 +223,10 @@ export function CreatedAdModal() {
             </div>
           </div>
 
-          <div className="flex gap-6">
-            <div className="flex flex-col gap-2">
+          <div className="grid grid-cols-1 lg:flex gap-6">
+            <div className="lg:flex lg:flex-col gap-2">
               <label htmlFor="weekDays">
-                Quando costuma jogar? <span className="text-[#ff0000]">*</span>
+                Quando costuma jogar? <span className="text-rose-700">*</span>
               </label>
               <ToggleGroup.Root
                 type="multiple"
@@ -210,21 +283,33 @@ export function CreatedAdModal() {
               </ToggleGroup.Root>
             </div>
 
-            <div className="flex flex-col gap-2 flex-1">
-              <label htmlFor="hourStart">Qual horário do dia? <span className="text-[#ff0000]">*</span></label>
+            <div className="lg:flex lg:flex-col gap-2 lg:flex-1">
+              <label htmlFor="hourStart">
+                Qual horário do dia? <span className="text-rose-700">*</span>
+              </label>
               <div className="grid grid-cols-2 gap-2">
-                <Input
+                <input
                   type="time"
+                  className={`mt-[8px] bg-zinc-900 ${
+                    errors.hoursStart
+                      ? "border-[1px] focus:outline-none border-rose-500 focus:ring"
+                      : ""
+                  } py-3 px-4 rounded text-sm placeholder:text-zinc-500`}
+                  {...register("hoursStart")}
                   name="hoursStart"
                   id="hoursStart"
-                  className="appearance-none"
                   placeholder="De"
                 />
-                <Input
+                <input
                   type="time"
+                  className={`mt-[8px] bg-zinc-900 ${
+                    errors.hourEnd
+                      ? "border-[1px] focus:outline-none border-rose-500 focus:ring"
+                      : ""
+                  } py-3 px-4 rounded text-sm placeholder:text-zinc-500`}
+                  {...register("hourEnd")}
                   name="hourEnd"
                   id="hourEnd"
-                  className="appearance-none"
                   placeholder="Até"
                 />
               </div>
@@ -243,7 +328,8 @@ export function CreatedAdModal() {
                 <Check className="w-4 h-4 text-emerald-400" />
               </Checkbox.Indicator>
             </Checkbox.Root>
-            Costuma me conectar ao chat de voz? <span className="text-[#ff0000]">*</span>
+            Costuma me conectar ao chat de voz?{" "}
+            <span className="text-rose-700">*</span>
           </label>
 
           <footer className="mt-4 flex justify-end gap-4">
