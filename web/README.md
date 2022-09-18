@@ -2,6 +2,8 @@
 
 <img align="right" src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Find Your Duo">
 
+<br>
+
 ## Tópicos
 
 [Sobre o Projeto](#sobre-o-projeto)
@@ -12,29 +14,23 @@
 
 [Agradecimentos](#agradecimentos)
 
-<br><br>
+<br>
 
 ## Sobre o Projeto
 
-<br>
-
 O projeto consiste em uma aplicação **Web** para encontrar o parceiro perfeito para jogar seu jogo favorito juntos. Desenvolvido durante a **NLW eSports**, evento disponibilizado pela [Rocketseat](https://www.rocketseat.com.br/)
 
-<br><br>
+<br>
 
 ## Aplicação Mobile
-
-<br>
 
 <p align="center">
   <img src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Web">
 </p>
 
-<br><br>
+<br>
 
 ## Tecnologias da Aplicação Web
-
-<br>
 
 Tecnologias e ferramentas utilizadas no desenvolvimento da aplicação Web:
 
@@ -49,11 +45,9 @@ Tecnologias e ferramentas utilizadas no desenvolvimento da aplicação Web:
 - [React-router-dom]()
 - [Phosphor]()
 
-<br><br>
+<br>
 
 ## Autor
-
-<br>
 
 [![Github Badge](https://img.shields.io/badge/-Github-373737?style=flat&logo=Github&logoColor=white)](https://github.com/savio-2-lopes)
 [![Instagram Badge](https://img.shields.io/badge/-Instagram-8a3ab9?style=flat&logo=instagram&logoColor=white)](https://www.instagram.com/savioaugulopes/)
@@ -62,11 +56,7 @@ Tecnologias e ferramentas utilizadas no desenvolvimento da aplicação Web:
 
 Feito com ❤️ por [Savio Lopes](https://www.linkedin.com/in/savio-lopes/)
 
-<br>
-
 ---
-
-<br>
 
 ## 💙 Agradecimentos
 

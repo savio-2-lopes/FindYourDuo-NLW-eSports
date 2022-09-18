@@ -23,43 +23,35 @@
 
 ## Sobre o Projeto
 
-<br>
-
 O projeto consiste em uma **Api** e uma plataforma **Web** e **Mobile** para encontrar o parceiro perfeito para jogar seu jogo favorito juntos. Desenvolvido durante a **NLW eSports**, evento disponibilizado pela [Rocketseat](https://www.rocketseat.com.br/)
 
 <br>
-<br>
 
 ### Aplicação Web
-
-<br>
 
 <p align="center">
   <img src="./.github/Find-Your-Duo-Server.gif" width="100%" alt="Web">
 </p>
 
-### API
-
 <br>
+
+### API
 
 <p align="center">
   <img src="./.github/Find-Your-Duo-Server.gif" width="100%" alt="Server">
 </p>
 
-### Aplicação Mobile
-
 <br>
+
+### Aplicação Mobile
 
 <p align="center">
   <img src="./.github/Find-Your-Duo-Server.gif" width="100%" alt="Mobile">
 </p>
 
 <br>
-<br>
 
 ## Tecnologias do Server
-
-<br>
 
 Tecnologias e ferramentas utilizadas no desenvolvimento da API:
 
@@ -69,11 +61,8 @@ Tecnologias e ferramentas utilizadas no desenvolvimento da API:
 - [CORS]()
 
 <br>
-<br>
 
 ## Tecnologias da Web
-
-<br>
 
 Tecnologias e ferramentas utilizadas no desenvolvimento da Web:
 
@@ -89,11 +78,8 @@ Tecnologias e ferramentas utilizadas no desenvolvimento da Web:
 - [Phosphor]()
 
 <br>
-<br>
 
 ## Tecnologias do Mobile
-
-<br>
 
 Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
@@ -104,11 +90,8 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 - [Phosphor]()
 
 <br>
-<br>
 
 ## Autor
-
-<br>
 
 [![Github Badge](https://img.shields.io/badge/-Github-373737?style=flat&logo=Github&logoColor=white)](https://github.com/savio-2-lopes)
 [![Instagram Badge](https://img.shields.io/badge/-Instagram-8a3ab9?style=flat&logo=instagram&logoColor=white)](https://www.instagram.com/savioaugulopes/)
@@ -117,11 +100,8 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
 Feito com ❤️ por [Savio Lopes](https://www.linkedin.com/in/savio-lopes/)
 
-<br>
-
 ---
 
-<br>
 
 ## 💙 Agradecimentos
 
