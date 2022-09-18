@@ -36,6 +36,15 @@ export function Game() {
     navigation.goBack();
   }
 
+  async function getDiscordUser(adsId: string) {
+    api
+      .get(`/ads/${adsId}/discord`)
+      .then((response) => setDiscordDuoSelected(response.data.discord))
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  }
+
   return (
     <Background>
       <SafeAreaView style={styles.container}>
@@ -63,7 +72,7 @@ export function Game() {
           data={duo}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <DuoCard onConnect={() => {}} data={item} />
+            <DuoCard onConnect={() => getDiscordUser(item.id)} data={item} />
           )}
           horizontal
           style={styles.containerList}
@@ -79,9 +88,9 @@ export function Game() {
         />
 
         <DuoMatch
-          visible={true}
-          discord="savio#222"
-          onClose={() => setDiscordDuoSelected('')}
+          visible={discordDuoSelected.length > 0}
+          discord={discordDuoSelected}
+          onClose={() => setDiscordDuoSelected("")}
         />
       </SafeAreaView>
     </Background>
