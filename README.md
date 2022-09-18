@@ -5,9 +5,9 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/savio-2-lopes/Find-Your-Duo-NLW-eSports)
 ![GitHub followers](https://img.shields.io/github/followers/savio-2-lopes?label=Follow&style=social)
 
-<img align="right" src="./.github/Find-Your-Duo-Server.gif" width="35%" alt="Find Your Duo">
-
 <br>
+
+<img align="right" src="./.github/Find-Your-Duo-Server.gif" width="40%" alt="Find Your Duo">
 
 ## Tópicos
 
