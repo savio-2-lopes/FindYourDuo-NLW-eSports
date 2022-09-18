@@ -38,13 +38,15 @@ export default function Home() {
   }, [api]);
 
   const [ref] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    mode: "free",
-    slides: { origin: "center", perView: 5.5, spacing: 10 },
-    range: {
-      min: -5,
-      max: 5,
+    breakpoints: {
+      "(min-width: 400px)": {
+        slides: { perView: 1.5, spacing: 5 },
+      },
+      "(min-width: 1000px)": {
+        slides: { perView: 5.5, spacing: 10 },
+      },
     },
+    slides: { perView: 1 },
   });
 
   return (
