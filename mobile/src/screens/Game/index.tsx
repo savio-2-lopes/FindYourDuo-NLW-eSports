@@ -8,10 +8,11 @@ import logoImg from "../../assets/logo-nlw-esports.png";
 import { styles } from "./styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GameParams } from "../../@types/navigation";
-import { FlatList, Image, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { THEME } from "../../theme";
 import { Heading } from "../../components/Heading";
 import { DuoCard, DuoCardProps } from "../../components/DuoCard";
+import { DuoMatch } from "../../components/DuoMatch";
 import api from "../../services/api";
 
 export function Game() {
@@ -20,6 +21,7 @@ export function Game() {
   const game = route.params as GameParams;
 
   const [duo, setDuo] = useState<DuoCardProps[]>([]);
+  const [discordDuoSelected, setDiscordDuoSelected] = useState("");
 
   useEffect(() => {
     api
@@ -60,13 +62,26 @@ export function Game() {
         <FlatList
           data={duo}
           keyExtractor={(item) => item.id}
-          horizontal
-          contentContainerStyle={styles.contentList}
-          showsHorizontalScrollIndicator={false}
-          style={styles.containerList}
           renderItem={({ item }) => (
             <DuoCard onConnect={() => {}} data={item} />
           )}
+          horizontal
+          style={styles.containerList}
+          contentContainerStyle={[
+            duo.length > 0 ? styles.contentList : styles.emptyListContent,
+          ]}
+          showsHorizontalScrollIndicator={false}
+          ListEmptyComponent={() => (
+            <Text style={styles.emptyListText}>
+              Não Há anúncios publicados ainda
+            </Text>
+          )}
+        />
+
+        <DuoMatch
+          visible={true}
+          discord="savio#222"
+          onClose={() => setDiscordDuoSelected('')}
         />
       </SafeAreaView>
     </Background>
