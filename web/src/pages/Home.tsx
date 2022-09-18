@@ -7,7 +7,6 @@ import api from "../services/api";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
-import "react-multi-carousel/lib/styles.css";
 import { GameBanner } from "../components/GameBanner";
 import { CreatedAdBanner } from "../components/CreatedAdBanner";
 import { Spinner } from "../components/Spinner";
