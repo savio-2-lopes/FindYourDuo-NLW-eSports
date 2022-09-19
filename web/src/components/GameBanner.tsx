@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import * as Dialog from "@radix-ui/react-dialog";
 
 interface GameBannerProps {
   bannerUrl: string;
@@ -8,8 +8,7 @@ interface GameBannerProps {
 
 function GameBanner(props: GameBannerProps) {
   return (
-    <Link
-      to={"/"}
+    <Dialog.Trigger
       className="relative overflow-hidden flex justify-center lg:justify-start"
     >
       <img className="rounded-[8px]" src={props.bannerUrl} alt={props.title} />
@@ -19,7 +18,7 @@ function GameBanner(props: GameBannerProps) {
           {props.adsCount} {props.adsCount > 1 ? "anúncios" : "anúncio"}
         </span>
       </div>
-    </Link>
+    </Dialog.Trigger>
   );
 }
 

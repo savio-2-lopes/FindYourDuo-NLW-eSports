@@ -7,7 +7,7 @@
 
 <br>
 
-<img align="right" src="./.github/Find-Your-Duo-Server.gif" width="40%" alt="Find Your Duo">
+<img align="right" src="./.github/Find-Your-Duo-Mobile.gif" width="40%" alt="Find Your Duo">
 
 ## Tópicos
 
@@ -27,10 +27,10 @@ O projeto consiste em uma **Api** e uma plataforma **Web** e **Mobile** para enc
 
 <br>
 
-### Aplicação Web
+### Aplicação Web/Mobile
 
 <p align="center">
-  <img src="./.github/Find-Your-Duo-Server.gif" width="100%" alt="Web">
+  <img src="./.github/Find-Your-Duo-Mobile.gif" width="100%" alt="Web">
 </p>
 
 <br>
@@ -39,14 +39,6 @@ O projeto consiste em uma **Api** e uma plataforma **Web** e **Mobile** para enc
 
 <p align="center">
   <img src="./.github/Find-Your-Duo-Server.gif" width="100%" alt="Server">
-</p>
-
-<br>
-
-### Aplicação Mobile
-
-<p align="center">
-  <img src="./.github/Find-Your-Duo-Server.gif" width="100%" alt="Mobile">
 </p>
 
 <br>

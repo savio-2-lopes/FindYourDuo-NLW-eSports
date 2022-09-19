@@ -1,6 +1,6 @@
 # Find Your Duo - Mobile
 
-<img src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Find Your Duo">
+<img src="../.github/Find-Your-Duo-Mobile.gif" width="100%" alt="Find Your Duo">
 
 <br>
 <br>
@@ -26,7 +26,7 @@ O projeto consiste em uma aplicação **Mobile** para encontrar o parceiro perfe
 ## Aplicação Mobile
 
 <p align="center">
-  <img src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Mobile">
+  <img src="../.github/Find-Your-Duo-Mobile.gif" width="100%" alt="Mobile">
 </p>
 
 <br>

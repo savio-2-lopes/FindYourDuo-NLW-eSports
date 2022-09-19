@@ -123,7 +123,7 @@ export function CreatedAdModal() {
             <X size={25} color="white" />
           </Dialog.Close>
         </Dialog.Title>
-        
+
         <form
           className="mt-8 flex flex-col gap-4"
           onSubmit={handleSubmit(onsubmit)}

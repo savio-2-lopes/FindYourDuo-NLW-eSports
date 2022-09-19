@@ -1,6 +1,6 @@
 # Find Your Duo - Web
 
-<img src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Find Your Duo">
+<img src="../.github/Find-Your-Duo-Mobile.gif" width="100%" alt="Find Your Duo">
 
 <br>
 <br>
@@ -23,10 +23,10 @@ O projeto consiste em uma aplicação **Web** para encontrar o parceiro perfeito
 
 <br>
 
-## Aplicação Mobile
+## Aplicação Web
 
 <p align="center">
-  <img src="../.github/Find-Your-Duo-Server.gif" width="100%" alt="Web">
+  <img src="../.github/Find-Your-Duo-Mobile.gif" width="100%" alt="Web">
 </p>
 
 <br>
@@ -35,7 +35,7 @@ O projeto consiste em uma aplicação **Web** para encontrar o parceiro perfeito
 
 Tecnologias e ferramentas utilizadas no desenvolvimento da aplicação Web:
 
-- [React](https://reactjs.org/)
+- [React](https:/reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [ViteJS]()
 - [Axios]()
